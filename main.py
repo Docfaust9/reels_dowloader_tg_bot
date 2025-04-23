@@ -14,7 +14,6 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot=bot)
 router = Router()
-router.message.filter(F.chat.type != "private")
 dp.include_router(router)
 
 
@@ -26,7 +25,6 @@ async def send_reel(message: types.Message):
         os.remove(file_name)
     except Exception as e:
         await message.reply(f"Ошибка загрузки: {e}")
-      
     
 
 async def main():
@@ -37,6 +35,4 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
-
-
-    
+   
