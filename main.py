@@ -17,7 +17,7 @@ router = Router()
 dp.include_router(router)
 
 
-@router.message(F.text.startswith("https://www.instagram.com/reel/"))
+@router.message(F.text.contains("https://www.instagram.com/reel/") | F.text.contains("https://youtube.com/shorts/"))
 async def send_reel(message: types.Message):
     try:
         file_name = download_instagram_reel(message.text)
@@ -26,7 +26,6 @@ async def send_reel(message: types.Message):
     except Exception as e:
         await message.reply(f"Ошибка загрузки: {e}")
     
-
 async def main():
     try:
         await dp.start_polling(bot)
