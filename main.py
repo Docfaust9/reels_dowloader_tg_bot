@@ -25,7 +25,7 @@ async def send_reel(message: types.Message):
     except Exception as e:
         message.reply(f"Ошибка загрузки: {e}")
       
-    await message.reply_video(FSInputFile(message.text))
+    await message.reply_video(FSInputFile(file_name))
 
 async def main():
     try:
