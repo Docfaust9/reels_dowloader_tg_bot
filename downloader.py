@@ -3,9 +3,9 @@ import yt_dlp
 
 
 def download_instagram_reel(url_input: str):
-    url_instagram = re.findall(r'https:\/\/www\.instagram\.com\/reel\/.+\/\?igsh=[^\s]*', url_input)[0]
-    url_youtube = re.findall(r'https:\/\/youtube\.com\/shorts\/[^\s]+', url_input)[0]
-    url = url_instagram if url_instagram else url_youtube
+    url_instagram = re.findall(r'https:\/\/www\.instagram\.com\/reel\/.+\/\?igsh=[^\s]*', url_input)
+    url_youtube = re.findall(r'https:\/\/youtube\.com\/shorts\/[^\s]+', url_input)
+    url = url_instagram[0] if url_instagram else url_youtube[0]
 
     ydl_opts = {
         'format': 'bestvideo+bestaudio/best',
