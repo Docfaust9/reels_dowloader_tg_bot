@@ -1,6 +1,8 @@
 import yt_dlp
+import re
 
-def download_instagram_reel(url: str):
+def download_instagram_reel(url_input: str):
+    url = re.findall(r'https:\/\/www\.instagram\.com\/reel\/.+\/\?igsh=\w*', url_input)[0]
     ydl_opts = {
         'format': 'bestvideo+bestaudio/best',
         'outtmpl': '/content/%(title)s.%(ext)s',
