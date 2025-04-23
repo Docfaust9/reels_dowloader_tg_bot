@@ -1,11 +1,11 @@
+import logging
+import os
+
 import asyncio
 from aiogram import Bot, Dispatcher, Router, types, F
-from aiogram.filters import Command
-from aiogram.types import Message, FSInputFile
-import logging
-import operator
-import os
+from aiogram.types import FSInputFile
 from dotenv import load_dotenv
+
 from downloader import download_instagram_reel
 
 load_dotenv()
@@ -15,7 +15,6 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot=bot)
 router = Router()
 dp.include_router(router)
-
 
 @router.message(F.text.contains("https://www.instagram.com/reel/") | F.text.contains("https://youtube.com/shorts/"))
 async def send_reel(message: types.Message):
