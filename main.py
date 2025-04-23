@@ -22,10 +22,12 @@ dp.include_router(router)
 async def send_reel(message: types.Message):
     try:
         file_name = download_instagram_reel(message.text)
+        await message.reply_video(FSInputFile(file_name))
+        os.remove(file_name)
     except Exception as e:
-        message.reply(f"Ошибка загрузки: {e}")
+        await message.reply(f"Ошибка загрузки: {e}")
       
-    await message.reply_video(FSInputFile(file_name))
+    
 
 async def main():
     try:
