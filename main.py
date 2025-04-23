@@ -1,0 +1,40 @@
+import asyncio
+from aiogram import Bot, Dispatcher, Router, types, F
+from aiogram.filters import Command
+from aiogram.types import Message, FSInputFile
+import logging
+import operator
+import os
+from dotenv import load_dotenv
+from downloader import download_instagram_reel
+
+load_dotenv()
+API_TOKEN = os.getenv('API_TOKEN')
+logging.basicConfig(level=logging.INFO)
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher(bot=bot)
+router = Router()
+router.message.filter(F.chat.type != "private")
+dp.include_router(router)
+
+
+@router.message(F.text.startswith("https://www.instagram.com/reel/"))
+async def send_reel(message: types.Message):
+    try:
+        file_name = download_instagram_reel(message.text)
+    except Exception as e:
+        message.reply(f"Ошибка загрузки: {e}")
+      
+    await message.reply_video(FSInputFile(message.text))
+
+async def main():
+    try:
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
+
+if __name__ == '__main__':
+    asyncio.run(main())
+
+
+    
